@@ -1,0 +1,49 @@
+
+
+
+// Shadows
+$drop-shadow-300: drop-shadow(0rem 0rem 0.5rem rgba(40, 42, 54, 0.04));
+$drop-shadow-400: drop-shadow(0.2rem 0.2rem 1.0rem rgba(40, 42, 54, 0.08));
+$drop-shadow-500: drop-shadow(0.2rem 0.4rem 1.0rem rgba(40, 42, 54, 0.012));
+
+
+// Font Weights
+$weight-light: 200; 
+$weight-regular: 300; 
+$weight-semibold: 400;
+$weight-bold: 500; 
+$weight-black: 700; 
+
+// Colors
+// Semantic
+$color-foreground: #2F2F2F; 
+$color-tint: #8B8D98; 
+$color-midground: #C7C9D1; 
+$color-shade: #DDDFE8; 
+$color-background: #FFFFFF;
+$color-elevate: hsl(228, 20%, 97%);
+
+// $color-foreground: #E0E0E0;
+// $color-tint: #A1A2A8;
+// $color-midground: #4A4B53;
+// $color-shade: #2C2D35;
+// $color-background: #1A1A1A;
+// $color-elevate: #2E2F34;
+
+// Brand
+$color-brand: #2570d2; 
+$color-info: #1a73e8;
+$color-error: #FF5E6E; 
+$color-warning: #FF8800; 
+$color-success: #2BD84E;
+
+
+// Typefaces
+$typeface-body:
+    "Inter",
+    "Mulish",
+    sans-serif;
+
+$typeface-heading:
+    "Nanum Myeongjo",
+    serif;

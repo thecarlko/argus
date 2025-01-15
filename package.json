@@ -53,7 +53,10 @@
 		"@tauri-apps/cli": "^2.2.4",
 		"@tauri-apps/plugin-opener": "^2.2.4",
 		"@types/luxon": "^3.4.2",
+		"d3": "^7.9.0",
+		"flowbite-svelte": "^0.47.4",
 		"lucide-svelte": "^0.471.0",
-		"luxon": "^3.5.0"
+		"luxon": "^3.5.0",
+		"sass": "^1.83.4"
 	}
 }

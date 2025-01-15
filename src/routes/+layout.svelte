@@ -2,12 +2,14 @@
 	import '$lib/styles/app.css';
 
 	import { Button, buttonVariants } from '$lib/components/ui/button';
-    import { Moon, Package, Sun } from 'lucide-svelte';
+    import { FileChartLine, Moon, Package, Sun } from 'lucide-svelte';
 	import { ModeWatcher } from "mode-watcher";
     import * as Tooltip from '$lib/components/ui/tooltip';
 	import { toggleMode, mode } from "mode-watcher";
 
+
 	let { children } = $props();
+	
 </script>
 
 <ModeWatcher />
@@ -41,7 +43,7 @@
 			
 			<Tooltip.Root>
 				<Tooltip.Trigger class={ buttonVariants({ variant: "ghost" }) + " !p-0 w-8 h-8" }>
-					<a href="/logs"><Package class="!w-6 !h-6" strokeWidth={1.25} /></a>
+					<a href="/logs"><FileChartLine class="!w-[1.3rem] !h-[1.3rem]" strokeWidth={1.25} /></a>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Mission Logs</Tooltip.Content>
 			</Tooltip.Root>

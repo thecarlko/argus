@@ -4,19 +4,32 @@
     import { Button } from "$lib/components/ui/button";
     import { ArrowLeft, ArrowRight } from "lucide-svelte";
     import missions from "$lib/data/missions.json"
+    import { DateTime } from "luxon";
+    import type { KeyboardEventHandler } from "svelte/elements";
 
     let missionIndex = $state(0);
+    const time = DateTime.now().hour;
+	const greeting = time < 12 ? "Good Morning" : time < 18 ? "Good Afternoon" : "Good Evening";
+
+    const translateMissions : KeyboardEventHandler<Window> = (event) => {
+        if ((event.key == "ArrowRight" && missionIndex == missions.length - 1) || (event.key == "ArrowLeft" && missionIndex == 0) || (event.key != "ArrowRight" && event.key != "ArrowLeft")) {
+            return;
+        }
+
+        missionIndex += event.key == "ArrowRight" ? 1 : -1;
+    };
 </script>
 
+<svelte:window onkeydown={ translateMissions } />
 
-<main class="h-screen w-screen pt-16 flex flex-col justify-end gap-6">
 
+<main class="h-screen w-screen pt-16 flex flex-col justify-end gap-6 overflow-hidden">
     <section class="flex flex-col justify-end mx-[5vw] flex-grow pt-[5vw]">
         <br>
-        <h1 class="text-center font-semibold text-5xl mx-auto max-w-[58rem]">Good Morning &middot; Ada Lovelace 👋</h1>
+        <h1 class="text-center font-semibold text-5xl mx-auto max-w-[58rem]">{ greeting } &middot; Ada Lovelace 👋</h1>
         <h4 class="text-center font-light mt-6 mb-5 mx-auto max-w-[48rem]">Monitor every second, catch every trend, and make every mission count. From flight logs to real-time data, let the numbers help tell the story — because precision isn't just the goal, it's the standard.</h4>
         <div class="flex align-center justify-center gap-2 mt-4 mb-12"> 
-            <a href="/new" class="button"><Button variant="secondary" size="sm">Start New Mission</Button></a>
+            <a href="/new" class="button"><Button size="sm">Start New Mission</Button></a>
             <a href="/logs" class="button"><Button variant="outline" size="sm">View Flight Logs</Button></a>
         </div>
 
@@ -26,7 +39,7 @@
         <div class="flex-grow relative">
             <div style={ `transform: translateY(-50%) translateX(${ -50 * missionIndex }%)` } class="absolute flex top-1/2 h-full gap-x-[5%] pl-[calc(22%+5vw)] transition-all duration-700">
                 {#each missions as { title, image }, index }
-                    <a style={ index != missionIndex ? "transform: scaleX(0.8) scaleY(0.8)" : "" } class="flex-grow flex justify-center transition-all duration-700 items-center min-w-[64%] w-[64%] origin-bottom" href={ `/mission/${ title.replaceAll(" ", "").toLocaleLowerCase() }` }><img src="/rockets/{ image }" alt=""></a>
+                    <a href={ `/mission/${ title.replaceAll(" ", "").toLocaleLowerCase() }` } style={ index != missionIndex ? "transform: scaleX(0.75) scaleY(0.75)" : "" } class="flex-grow flex justify-center transition-all duration-700 items-center min-w-[64%] w-[64%] origin-bottom" ><img src="/rockets/{ image }" alt=""></a>
                 {/each}
             </div>
 
