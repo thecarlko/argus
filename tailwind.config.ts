@@ -9,6 +9,10 @@ const config: Config = {
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	safelist: ["dark"],
 	theme: {
+		fontFamily: {
+			'display': 'Orbitron',
+      		'body': "Inter, Open Sans",
+		},
 		container: {
 			center: true,
 			padding: "2rem",

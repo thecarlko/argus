@@ -80,4 +80,10 @@ img, svg {
   object-fit: contain;
 }
 
+button > svg.lucide-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 
