@@ -58,10 +58,10 @@
         </span>
     </section>
 
-    <form class="prose ml-auto w-full md:w-[45vw]  md:px-8">
+    <form class="prose text-foreground ml-auto w-full md:w-[45vw]  md:px-8">
         <br>
-        <h3 class="capitalize">Start a new flight mission &nbsp;✦&nbsp; Ad Astra &nbsp;🚀</h3>
-        <p class="text-m">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quis, unde neque illo nam rem. Laborum velit recusandae in itaque voluptas, enim similique, nemo reiciendis architecto et iusto natus, culpa aliquid quidem!</p>
+        <h3 class="capitalize text-foreground">Start a new flight mission &nbsp;✦&nbsp; Ad Astra &nbsp;🚀</h3>
+        <p class="text-m text-muted-foreground">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quis, unde neque illo nam rem. Laborum velit recusandae in itaque voluptas, enim similique, nemo reiciendis architecto et iusto natus, culpa aliquid quidem!</p>
 
         <div class="flex flex-col gap-4">
             <Textfield bind:value={missionTitle} label="Mission Title" placeholder="Polaris VII">
@@ -77,7 +77,7 @@
         <h4>Fuel Type</h4>
         <RadioGroup.Root bind:value={ fuelType } class="flex items-center justify-between mt-3 gap-2 h-max">
             {#each fuelOptions as { title, icon }}
-            <Label for={ title } data-selected={ fuelType == title } class="flex cursor-pointer flex-col bg-accent opacity-50 justify-end gap-3 rounded-xl h-max flex-1 px-4 py-3 border border-border data-[selected=true]:bg-background data-[selected=true]:shadow-md data-[selected=true]:text-foreground data-[selected=true]:opacity-100">
+            <Label for={ title } data-selected={ fuelType == title } class="flex cursor-pointer flex-col bg-accent opacity-50 justify-end gap-3 rounded-xl h-max flex-1 px-4 py-3 border border-border data-[selected=true]:bg-white data-[selected=true]:shadow-md data-[selected=true]:text-slate-700 data-[selected=true]:opacity-100">
                 <RadioGroup.Item hidden value={title} id={title} />
                 {@render icon()}
                 <span class="capitalize">{ title }</span>
