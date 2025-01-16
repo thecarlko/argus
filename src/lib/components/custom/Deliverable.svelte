@@ -21,6 +21,9 @@
 
         aspect-ratio: 16/11;
 
+        border-radius: 1.5rem;
+        overflow: hidden;
+
         box-shadow: 0rem 0rem 1.5rem rgba(40, 42, 54, 0.08);
 
         @keyframes primary-in {
@@ -191,9 +194,6 @@
                 animation-fill-mode: forwards;
             }
         }
-
-        border-radius: 1.5rem;
-        overflow: hidden;
 
 
         > span.navbar {
