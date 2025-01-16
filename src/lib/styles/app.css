@@ -32,6 +32,21 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --brand: 11 72% 58%;
+
+    --drop-shadow-200: drop-shadow(0rem 0rem 0.2rem rgba(40, 42, 54, 0.02));
+    --drop-shadow-300: drop-shadow(0rem 0rem 0.5rem rgba(40, 42, 54, 0.04));
+    --drop-shadow-400: drop-shadow(0.2rem 0.2rem 1.0rem rgba(40, 42, 54, 0.08));
+    --drop-shadow-500: drop-shadow(0.2rem 0.4rem 1.0rem rgba(40, 42, 54, 0.012));
+
+    --color-background: #FFFFFF;
+    --color-tint: #A2A2A2;
+
+    --color-brand: hsl(11, 72%, 58%);
+    --color-land: #E1E7EB;
+    --color-oceans: #F8FAFB;
+    --color-chart-fill: hsl(10, 74%, 90%);
   }
 
   .dark {
@@ -63,6 +78,16 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --brand: 11 72% 58%;
+
+    --color-midground: #94A3B8;
+    --color-background: #272e3f;
+
+
+    --color-chart-fill: #EEA08F;
+    --color-land: #4b5462;
+    --color-oceans: #1E293B;
   }
 }
 

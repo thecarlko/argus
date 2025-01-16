@@ -58,7 +58,7 @@
         </span>
     </section>
 
-    <form class="prose border-orange-600 ml-auto w-full md:w-[45vw]  md:px-8">
+    <form class="prose ml-auto w-full md:w-[45vw]  md:px-8">
         <br>
         <h3 class="capitalize">Start a new flight mission &nbsp;✦&nbsp; Ad Astra &nbsp;🚀</h3>
         <p class="text-m">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quis, unde neque illo nam rem. Laborum velit recusandae in itaque voluptas, enim similique, nemo reiciendis architecto et iusto natus, culpa aliquid quidem!</p>

@@ -6,31 +6,38 @@
 	import { ModeWatcher } from "mode-watcher";
     import * as Tooltip from '$lib/components/ui/tooltip';
 	import { toggleMode, mode } from "mode-watcher";
+	import { Toaster } from "$lib/components/ui/sonner";
+    import { toast } from 'svelte-sonner';
 
 
 	let { children } = $props();
+	function toggleTheme() {
+		toast.success("Theme has been changed to " + ($mode == "light" ? "dark" : "light"));
+		toggleMode();
+	}	
 	
 </script>
 
 <ModeWatcher />
+<Toaster richColors />
 <section id="pattern" class="fixed h-lvh w-lvw -z-50 top-0 left-0 bottom-0 right-0 bg-repeat-space" style={ `background-image: url("/assets/${ $mode == "light" ? 'pattern.png' : 'pattern-dark.png' }")` }></section>
 
 <Tooltip.Provider>
-<nav class="fixed top-0 left-0 right-0 py-3 px-4 md:px-8 z-50">
+<nav class="fixed top-0 left-0 right-0 py-3 px-4 md:px-8 z-50 pointer-events-none">
 	<header class="flex items-center justify-between">
 		<div>
-			<a class="block h-8" href="/">
+			<a class="block h-8 pointer-events-auto" href="/">
 				<img src={ $mode == "light" ? "/icons/argus.png" : "/icons/argus-dark.png" } alt="">
 			</a>
 		</div>
 
 		<div></div>
 
-		<div class="flex justify-end items-center gap-3">	
+		<div class="flex justify-end items-center gap-3 pointer-events-auto">	
 			
 			<Tooltip.Root>
 				<Tooltip.Trigger class={ buttonVariants({ variant: "ghost" }) + " !p-[3px] w-8 h-8" }>
-					<button onclick={ toggleMode }>
+					<button onclick={ toggleTheme }>
 						{#if $mode == "light" }
 						<Moon class="!w-6 !h-6" strokeWidth={1.25} />
 						{:else}

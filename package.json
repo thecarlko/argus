@@ -45,6 +45,7 @@
 		"vite": "^5.4.11"
 	},
 	"dependencies": {
+		"@observablehq/plot": "^0.6.16",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/typography": "^0.5.15",
@@ -52,11 +53,15 @@
 		"@tauri-apps/api": "^2.2.0",
 		"@tauri-apps/cli": "^2.2.4",
 		"@tauri-apps/plugin-opener": "^2.2.4",
+		"@types/d3": "^7.4.3",
 		"@types/luxon": "^3.4.2",
+		"@types/three": "^0.172.0",
 		"d3": "^7.9.0",
+		"d3-geo": "^3.1.1",
 		"flowbite-svelte": "^0.47.4",
 		"lucide-svelte": "^0.471.0",
 		"luxon": "^3.5.0",
-		"sass": "^1.83.4"
+		"sass": "^1.83.4",
+		"three": "^0.172.0"
 	}
 }
