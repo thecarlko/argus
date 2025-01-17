@@ -36,7 +36,7 @@
 	const addWidget = $derived((widgetType: "chart" | "stream" | "rocket" | "trajectory") => {
 
         let base: WidgetProps = {
-			location: { x: 0, y: 0, width: 8, height: 10 },
+			location: { x: 1, y: 1, width: 8, height: 10 },
             type: widgetType,
         };
         switch (widgetType) {

@@ -28,35 +28,54 @@
 
     let { title, type, backgroundType = "shadow" } = props as (ChartProps | TrajectoryProps | RocketProps | StreamProps);
 
+    let ghostElement: HTMLDivElement;
     let widgetWidth = $state(0); let widgetHeight = $state(0);
     let [offsetTop, offsetLeft] = [0, 0];
     let [anchorX, anchorY] = [0, 0];
     let dx = $state(0); let dy = $state(0);
 
-    const style = $derived.by(() => {
-        return (
-        `
-            grid-row-start: ${ location.y };
-            grid-column-start: ${ location.x };
-            grid-row-end: span ${ location.height };
-            grid-column-end: span ${ location.width };
-            transform: translateX(0px) translateY(0px);
-            filter: ${ backgroundType === "shadow" ? `var(--drop-shadow-300);` : "none" };
-            background-color: ${ backgroundType == "none" ? `transparent` : `hsl(var(--background))` };
-            border: ${  backgroundType == "none" ? `none` : `1px solid hsl(var(--accent))` };
-        `);
-    });
+
+    const style = $derived(`
+        grid-row-start: ${ location.y };
+        grid-column-start: ${ location.x };
+        grid-row-end: span ${ location.height };
+        grid-column-end: span ${ location.width };
+        transform: translateX(${ dx }px) translateY(${ dy }px);
+        filter: ${ backgroundType === "shadow" ? `var(--drop-shadow-300);` : "none" };
+        background-color: ${ backgroundType == "none" ? `transparent` : `hsl(var(--background))` };
+        border: ${  backgroundType == "none" ? `none` : `1px solid hsl(var(--accent))` };
+    `);
+
+
     const onDragStart: DragEventHandler<HTMLDivElement> = (event) => {
         [anchorX, anchorY] = [event.x, event.y];
         [offsetTop, offsetLeft] = [(event.target as HTMLElement).offsetTop, (event.target as HTMLElement).offsetLeft];
+
+        // Disable ghost image
+        if (!event.dataTransfer) return;
+        event.dataTransfer.clearData();
+        event.dataTransfer.setDragImage(ghostElement, 0, 0);
+
+    
     };
 
     const onDrag : DragEventHandler<HTMLDivElement> = (event) => {
         if (event.x == 0 || event.y == 0) return;
         [dx, dy] = [event.x - anchorX, event.y - anchorY];
+
     };
 
     const onFinishDrag: DragEventHandler<HTMLDivElement> = (event) => {
+        
+        const [cellX, cellY] = getDropCoordinates();
+        [location.x, location.y] = [cellX, cellY];
+
+        $canvasTabs[$canvasIndex].widgets[index].location = location;
+    };
+
+
+    function getDropCoordinates() {
+
         const [dropX, dropY] = [offsetLeft + dx - vwToPX(4), offsetTop + dy - remToPX(4)];
 
         let [cellX, cellY] = [Math.floor(dropX / cellWidth) + 1, Math.floor(dropY / cellHeight) + 1];
@@ -66,14 +85,15 @@
         if (cellY < 1) cellY = 1;
 
         [dx, dy] = [0, 0];
-        location.x = cellX;
-        location.y = cellY;
 
-        $canvasTabs[$canvasIndex].widgets[index].location = location;
 
-    };
+        return [cellX, cellY];
+    }
+
 </script>
 
+
+<div class="ghost" bind:this={ ghostElement }></div>
 
 <div
     bind:clientWidth={ widgetWidth }
@@ -128,6 +148,11 @@
 </div>
 
 <style>
+    div.ghost {
+        width: 1px;
+        height: 1px;
+        opacity: 0%;
+    }
 </style>
 
 
