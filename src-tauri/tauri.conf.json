@@ -2,7 +2,7 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Argus",
   "version": "1.0.0",
-  "identifier": "com.argus.app",
+  "identifier": "com.longhornrocketry.argus",
   "build": {
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:8080",
@@ -23,13 +23,31 @@
   },
   "bundle": {
     "icon": [
-      "src/icons/macos/AppIcon.icns", 
-      "src/icons/web/icon-512.png" 
+      "icons/macos/AppIcon.icns",
+      "icons/ios/AppIcon-20@2x.png",
+      "icons/ios/AppIcon-20@2x~ipad.png",
+      "icons/ios/AppIcon-20@3x.png",
+      "icons/ios/AppIcon-20~ipad.png",
+      "icons/ios/AppIcon-29.png",
+      "icons/ios/AppIcon-29@2x.png",
+      "icons/ios/AppIcon-29@2x~ipad.png",
+      "icons/ios/AppIcon-29@3x.png",
+      "icons/ios/AppIcon-29~ipad.png",
+      "icons/ios/AppIcon-40@2x.png",
+      "icons/ios/AppIcon-40@2x~ipad.png",
+      "icons/ios/AppIcon-40@3x.png",
+      "icons/ios/AppIcon-40~ipad.png",
+      "icons/ios/AppIcon-60@2x~car.png",
+      "icons/ios/AppIcon-60@3x~car.png",
+      "icons/ios/AppIcon-83.5@2x~ipad.png",
+      "icons/ios/AppIcon@2x.png",
+      "icons/ios/AppIcon@2x~ipad.png",
+      "icons/ios/AppIcon@3x.png",
+      "icons/ios/AppIcon~ios-marketing.png",
+      "icons/ios/AppIcon~ipad.png",
+      "icons/web/icon-512.png"
     ],
     "resources": [],
-    "targets": ["deb", "appimage", "msi", "dmg"],
-    "windows": {
-      "iconPath": "src/icons/web/icon-512-maskable.png"
-    }
+    "targets": ["deb", "appimage", "msi", "dmg"]
   }
 }
