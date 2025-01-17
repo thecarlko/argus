@@ -11,7 +11,7 @@
     import { page } from '$app/state';
     import { sampleVelocityData } from '$lib/utilities/telemetry';
     import { canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
-    import { Earth, FileChartLine, Grid2x2Plus, Moon, Package, Rocket, Sun, TrendingUp, Video } from 'lucide-svelte';
+    import { Earth, FileChartLine, Grid2x2Plus, Moon, Package, Rocket, Sun, TrendingUp, Video, X } from 'lucide-svelte';
     import type { ChartProps, RocketProps, StreamProps, TrajectoryProps, WidgetProps } from '$lib/models/editor.svelte';
 
 
@@ -44,7 +44,7 @@
                 (base as ChartProps) = {
                     ...base,
                     title: "Velocity",
-                    data: sampleVelocityData(100, 875),
+					dataType: "velocity",
                     axisLabels: ["", "Velocity (m/s)"],
                     graphType: ["area", "line"]
                 };
@@ -78,6 +78,10 @@
 	
 </script>
 
+<svelte:head>
+	<title>Argus ✦ Rocket Telemetry Application</title>
+</svelte:head>
+
 <ModeWatcher />
 <Toaster richColors />
 <section id="pattern" class="fixed h-lvh w-lvw -z-50 top-0 left-0 bottom-0 right-0 bg-repeat-space" style={ `background-image: url("/assets/${ $mode == "light" ? 'pattern.png' : 'pattern-dark.png' }")` }></section>
@@ -88,8 +92,10 @@
 <nav class="fixed top-0 left-0 right-0 py-3 px-4 md:px-8 z-50 pointer-events-none">
 	<header class="flex items-center justify-between">
 		<div class="flex justify-center items-center space-x-1 pointer-events-auto">
-			<a class="block pr-1 h-8 pointer-events-auto" href="/">
+			<a class="flex items-center pr-1 h-9 pointer-events-auto" href="/">
 				<img src={ $mode == "light" ? "/icons/argus.png" : "/icons/argus-dark.png" } alt="">
+				<X class="w-3 h-3 ml-3" strokeWidth={1} />
+				<img class="py-1 w-max" src="/icons/longhorn.png" alt="">
 			</a>
 			<!-- <p>/</p> -->
 			<!-- <p class="text-xs px-2 py-1 rounded-full hover:bg-accent hover:cursor-pointer">polarisiii</p> -->

@@ -2,7 +2,7 @@
 
 
 <script lang="ts">
-    import type { RocketProps } from "$lib/models/editor.svelte";
+    import { playing, type RocketProps } from "$lib/models/editor.svelte";
     import { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight, HemisphereLight, DirectionalLight, Vector3 } from "three";
     import { GLTFLoader } from "three/addons";
 
@@ -64,6 +64,8 @@
 
 
         function animate() {
+
+            if (!$playing) return;
 
             // Rotate the rocket
             rotation -= 0.008;

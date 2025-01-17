@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { CloudUpload, Cuboid, Droplets, LoaderPinwheel, Rocket, Sun, Target, Zap } from "lucide-svelte";
+    import { CloudUpload, Cuboid, Droplets, LoaderPinwheel, Rocket, Sun, Target, Waves, Zap } from "lucide-svelte";
     import Textfield from "$lib/components/custom/Textfield.svelte";
     import * as RadioGroup from "$lib/components/ui/radio-group";
     import { Dropzone } from 'flowbite-svelte';
@@ -17,12 +17,12 @@
 
     let rows = $derived(Math.floor(viewportHeight / 40));
 
-    let fuelType: "liquid" | "solid" | "hybrid" | "electric" = $state("liquid");
+    let fuelType: "liquid" | "solid" | "hybrid" | "inert" = $state("liquid");
     const fuelOptions = [
         { title: "liquid", "pattern": "holograph.png", icon: droplets },
         { title: "solid", "pattern": "whirl.svg", icon: cuboid },
         { title: "hybrid", "pattern": "chaos.svg", icon: loader },
-        { title: "electric", "pattern": "quad.svg", icon: zap }
+        { title: "inert", "pattern": "quad.svg", icon: waves }
     ];
 
     let files: File[] = $state([]);
@@ -61,7 +61,7 @@
     <form class="prose text-foreground ml-auto w-full md:w-[45vw]  md:px-8">
         <br>
         <h3 class="capitalize text-foreground">Start a new flight mission &nbsp;✦&nbsp; Ad Astra &nbsp;🚀</h3>
-        <p class="text-m text-muted-foreground">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quis, unde neque illo nam rem. Laborum velit recusandae in itaque voluptas, enim similique, nemo reiciendis architecto et iusto natus, culpa aliquid quidem!</p>
+        <p class="text-m text-muted-foreground">Prepare to embark on a new mission. Define your objectives, name your vessel, and take the next step toward advancing our reach beyond the horizon. Each mission is a testament to precision, purpose, and progress.</p>
 
         <div class="flex flex-col gap-4">
             <Textfield bind:value={missionTitle} label="Mission Title" placeholder="Polaris VII">
@@ -125,8 +125,8 @@
 <Cuboid strokeWidth={1.25} />
 {/snippet}
 
-{#snippet zap()}
-<Zap strokeWidth={1.25} />
+{#snippet waves()}
+<Waves strokeWidth={1.25} />
 {/snippet}
 
 {#snippet loader()}

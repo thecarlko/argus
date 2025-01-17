@@ -1,3 +1,4 @@
+import { generateRocketAltitude } from "$lib/utilities/telemetry";
 import { type Writable, writable } from "svelte/store";
 
 
@@ -28,9 +29,8 @@ export interface TrajectoryProps extends WidgetProps {
 }
 
 export interface ChartProps extends WidgetProps {
-    data: any[]
     axisLabels?: [string | undefined, string | undefined]
-    dataType?: "scalar" | "vector" | "trigonal" | "quaternion"
+    dataType: "altitude" | "velocity" | "temperature" | "pressure" | "acceleration" | "thrust" 
     graphType: ("line" | "area" | "dots" | "bar" | "hexgrid" | "box")[]
 }
 
@@ -43,40 +43,36 @@ export interface RocketProps extends WidgetProps {
 };
 
 
-const velocity = [0, 5, 20, 50, 90, 130, 170, 200, 220, 230, 220, 200, 170, 130, 90, 50, 20, 0, -5];
-const altitude = [0, 2, 8, 18, 32, 50, 72, 98, 128, 162, 190, 212, 228, 238, 242, 240, 232, 218, 200];
-const thrusters = [20, 12, 37, 87, 54];
-
 const charts: ChartProps[] = [
     {
         location: { x: 10, y: 24, width: 9, height: 14 },
         title: "Velocity",
         graphType: ["line", "area"],
-        data: velocity,
-        axisLabels: ["time (s)", "m/s"],
+        dataType: "velocity",
+        axisLabels: ["time (s)", "km/s"],
         type: "chart"
     },
     {
         location: { x: 19, y: 24, width: 9, height: 14 },
-        title: "Velocity",
+        title: "Acceleration",
         graphType: ["line", "area"],
-        data: [0, 10, 20, 30, 40, 50, 55],
-        axisLabels: ["time (s)", "m/s"],
+        dataType: "acceleration",
+        axisLabels: ["time (s)", "km/s²"],
         type: "chart"
     },
     {
         location: { x: 1, y: 12, width: 9, height: 12 },
         title: "Altitude",
         graphType: ["area", "line"],
-        data: altitude,
+        dataType: "altitude",
         axisLabels: ["time (s)", "km"],
         type: "chart"
     },
     {
         location: { x: 28, y: 12, width: 9, height: 12 },
         title: "Pressure",
-        graphType: ["bar"],
-        data: [...velocity.slice(2, 15), altitude.slice(7)],
+        graphType: ["line"],
+        dataType: "pressure",
         axisLabels: ["time (s)", "k/Pa"],
         type: "chart"
     },
@@ -84,16 +80,16 @@ const charts: ChartProps[] = [
         location: { x: 28, y: 24, width: 9, height: 14 },
         title: "Thrusters",
         graphType: ["box"],
-        data: thrusters,
-        axisLabels: ["Thusters I, II, III, and IV", undefined],
+        dataType: "thrust",
+        axisLabels: ["Thusters I, II, III, and IV -- N/Kg", undefined],
         type: "chart"
     },
     {
         location: { x: 1, y: 24, width: 9, height: 14 },
         title: "Temperature",
-        graphType: ["line", "bar"],
-        axisLabels: ["time (s)", undefined],
-        data: velocity,
+        graphType: ["line"],
+        axisLabels: ["time (s)", "°K"],
+        dataType: "temperature",
         type: "chart"
     }
 ];
@@ -127,6 +123,7 @@ const dashboardViews: any[] = [
 ];
 
 
+export let playing: Writable<boolean> = writable(true);
 export let canvasIndex: Writable<number> = writable(0);
 export const canvasTabs: Writable<Canvas[]> = writable([
     { title: "Mission Control", widgets: dashboardViews },

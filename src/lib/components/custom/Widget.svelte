@@ -15,6 +15,7 @@
     import ChartView from "./ChartView.svelte";
 
     let {
+        playing,
         cellWidth = $bindable() as number,
         cellHeight = $bindable() as number,
         index,
@@ -106,8 +107,8 @@
     ondragend={ onFinishDrag }
     class="border-accent relative m-2 rounded-xl overflow-hidden bg-background cursor-pointer border">
 
-    <header style={ type == "stream" ? "background: linear-gradient(180deg, hsl(var(--background) / 0.5) 0%, transparent 100%);" : "" } class="absolute text-foreground fill-foreground text-sm top-0 left-0 right-0 w-full pl-4 pr-3 py-2 space-x-2 grid grid-cols-[max-content,1fr,max-content,max-content]">
-        <div class="my-auto">
+    <header style={ type == "stream" ? "background: linear-gradient(180deg, hsl(var(--foreground) / 0.5) 0%, transparent 100%);" : "" } class="absolute text-foreground fill-foreground text-sm top-0 left-0 right-0 w-full pl-4 pr-3 py-2 space-x-2 grid grid-cols-[max-content,1fr,max-content,max-content]">
+        <div class={ (type == "stream" ? "text-white": "") + " my-auto" }>
             {#if props.type == "rocket"}
                 <Rocket strokeWidth={1.25} />
             {:else if props.type == "stream" }
@@ -118,8 +119,14 @@
                 <TrendingUp strokeWidth={1.25} />
             {/if}
         </div>
-        <p class="my-auto">{ title }</p>
-        <button onclick={ () => toast("hello world") } class="hover:scale-110 p-[2px] rounded-md"><ChevronsUpDown class="rotate-45" strokeWidth={1} /></button>
+
+        <div class={ (type == "stream" ? "text-white": "") + " my-auto flex items-center gap-2" }>
+            <p>{ title }</p>
+            {#if type == "stream"}
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-ping ml-2"></div>
+            {/if}
+        </div>
+        <button onclick={ () => toast("hello world") } class={ (type == "stream" ? "text-white": "") + " hover:scale-110 p-[2px] rounded-md" }><ChevronsUpDown class="rotate-45" strokeWidth={1} /></button>
     </header>
 
     
@@ -140,7 +147,7 @@
             title={ title }
             location={ location }
             type={ type }
-            data={(props as any).data}
+            dataType={ props.dataType }
             axisLabels={(props as any).axisLabels}
             graphType={ (props as any).graphType }
         />

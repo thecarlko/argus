@@ -2,12 +2,13 @@
 
 <script lang="ts">
     import Widget from "$lib/components/custom/Widget.svelte";
-    import type { WidgetProps, WidgetLocation } from "$lib/models/editor.svelte";
+    import { type WidgetProps, type WidgetLocation, playing } from "$lib/models/editor.svelte";
     import { remToPX, vwToPX } from "$lib/utilities/math";
     import { canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
-    import { Slice } from "lucide-svelte";
+    import { Pause, Play, Slice } from "lucide-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import { fly } from "svelte/transition";
+    import { Button } from "$lib/components/ui/button";
 
     let mainWidth = $state(0); let mainHeight = $state(0);
     let [cellWidth, cellHeight] = $derived([(mainWidth - vwToPX(8)) / 36, (mainHeight - remToPX(7)) / 36]);
@@ -29,10 +30,23 @@
         </Tabs.Root>
     </div>
 
+    <div transition:fly="{{ y: 200, duration: 400 }}" class="absolute bottom-0 left-0 right-0 py-2 flex justify-center items-center z-50 pointer-events-none">
+        <div class="pointer-events-auto">
+            <Button onclick={ () => playing.update((current) => !current) } variant="ghost" class="w-10 p-2">
+                {#if $playing }
+                <Pause fill="hsl(var(--foreground))" strokeWidth={1} />
+                { :else }
+                <Play fill="hsl(var(--foreground))" strokeWidth={1} />
+                {/if}
+            </Button>
+
+        </div>
+    </div>
+
     {#each $canvasTabs as { widgets }, index }
-    <section style={ `transform: translateX(${ 100 * (index - $canvasIndex) }vw)` } class="absolute transition duration-700 h-screen w-screen pt-16 pb-12 px-[4vw]">
+    <section style={ `transform: translateX(${ 100 * (index - $canvasIndex) }vw)` } class="absolute transition duration-700 h-screen w-screen pt-16 pb-14 px-[4vw]">
         {#each widgets as cell, i }
-        <Widget cellWidth={ cellWidth } cellHeight={ cellHeight } {...cell} index={i} />
+        <Widget playing cellWidth={ cellWidth } cellHeight={ cellHeight } {...cell} index={i} />
         {/each}
     </section>
     {/each}
