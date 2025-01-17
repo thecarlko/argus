@@ -10,7 +10,7 @@ export interface Canvas {
 
 export interface WidgetProps {
     location: WidgetLocation;
-    title: string;
+    title?: string;
     type: "chart" | "stream" | "rocket" | "trajectory";
     backgroundType?: "shadow" | "solid" | "none" | string;
 }
@@ -127,6 +127,7 @@ const dashboardViews: any[] = [
 ];
 
 
+export let canvasIndex: Writable<number> = writable(0);
 export const canvasTabs: Writable<Canvas[]> = writable([
     { title: "Mission Control", widgets: dashboardViews },
     { title: "Trajectory", widgets: [] },

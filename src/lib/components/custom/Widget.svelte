@@ -4,10 +4,9 @@
 
 
 <script lang="ts">
-    import type { StreamProps, TrajectoryProps, ChartProps, RocketProps, WidgetLocation } from "$lib/models/editor.svelte";
+    import { type StreamProps, type TrajectoryProps, type ChartProps, type RocketProps, type WidgetLocation, canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
     import { vwToPX, remToPX, round, clamp } from "$lib/utilities/math";
     import { ChevronsUpDown, Earth, Ellipsis, EllipsisVertical, Rocket, TrendingUp, Video } from "lucide-svelte";
-    import type {  } from "lucide-svelte/icons/rocket";
     import { toast } from "svelte-sonner";
     import type { DragEventHandler } from "svelte/elements";
     import RocketView from "./RocketView.svelte";
@@ -16,17 +15,18 @@
     import ChartView from "./ChartView.svelte";
 
     let {
-        location = $bindable() as WidgetLocation,
         cellWidth = $bindable() as number,
         cellHeight = $bindable() as number,
+        index,
         ...props
     } = $props();
 
+    let location = $state(props.location)
+
+    
+
+
     let { title, type, backgroundType = "shadow" } = props as (ChartProps | TrajectoryProps | RocketProps | StreamProps);
-
-
-
-    let { x, y, width, height } = location;
 
     let widgetWidth = $state(0); let widgetHeight = $state(0);
     let [offsetTop, offsetLeft] = [0, 0];
@@ -36,10 +36,10 @@
     const style = $derived.by(() => {
         return (
         `
-            grid-row-start: ${ y };
-            grid-column-start: ${ x };
-            grid-row-end: span ${ height };
-            grid-column-end: span ${ width };
+            grid-row-start: ${ location.y };
+            grid-column-start: ${ location.x };
+            grid-row-end: span ${ location.height };
+            grid-column-end: span ${ location.width };
             transform: translateX(0px) translateY(0px);
             filter: ${ backgroundType === "shadow" ? `var(--drop-shadow-300);` : "none" };
             background-color: ${ backgroundType == "none" ? `transparent` : `hsl(var(--background))` };
@@ -60,13 +60,17 @@
         const [dropX, dropY] = [offsetLeft + dx - vwToPX(4), offsetTop + dy - remToPX(4)];
 
         let [cellX, cellY] = [Math.floor(dropX / cellWidth) + 1, Math.floor(dropY / cellHeight) + 1];
-        if (cellX + width > 36) cellX = 37 - width;
-        if (cellY + height > 36) cellY = 37 - height;
+        if (cellX + location.width > 36) cellX = 37 - location.width;
+        if (cellY + location.height > 36) cellY = 37 - location.height;
         if (cellX < 1) cellX = 1;
         if (cellY < 1) cellY = 1;
 
         [dx, dy] = [0, 0];
-        [x, y] = [cellX, cellY];
+        location.x = cellX;
+        location.y = cellY;
+
+        $canvasTabs[$canvasIndex].widgets[index].location = location;
+
     };
 </script>
 

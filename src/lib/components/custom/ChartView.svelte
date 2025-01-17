@@ -6,7 +6,9 @@
     import { areaY, barY, boxX, dotY, hexgrid, lineY, plot, type Markish } from "@observablehq/plot";
 
     let props : ChartProps = $props();
-    let { data, graphType, axisLabels } = props;
+    let { graphType, axisLabels } = props;
+
+    let data = $state(props.data);
 
     let canvasWidth : number = $state(250);
     let canvasHeight : number = $state(150);
@@ -37,7 +39,6 @@
             marks: graphs
         })
 
-        console.log(canvas.parentElement);
         canvas.append(graph);
     });
 </script>

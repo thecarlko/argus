@@ -2,7 +2,6 @@
 	import '$lib/styles/app.css';
 
 	import { Button, buttonVariants } from '$lib/components/ui/button';
-    import { Earth, FileChartLine, Grid2x2Plus, Moon, Package, Rocket, Sun, TrendingUp, Video } from 'lucide-svelte';
 	import { ModeWatcher } from "mode-watcher";
     import * as Tooltip from '$lib/components/ui/tooltip';
 	import { toggleMode, mode } from "mode-watcher";
@@ -10,6 +9,10 @@
     import { toast } from 'svelte-sonner';
     import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
     import { page } from '$app/state';
+    import { sampleVelocityData } from '$lib/utilities/telemetry';
+    import { canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
+    import { Earth, FileChartLine, Grid2x2Plus, Moon, Package, Rocket, Sun, TrendingUp, Video } from 'lucide-svelte';
+    import type { ChartProps, RocketProps, StreamProps, TrajectoryProps, WidgetProps } from '$lib/models/editor.svelte';
 
 
 	let { children } = $props();
@@ -19,12 +22,59 @@
 		toggleMode();
 	};
 	
-	const widgetIcons = [
+	const widgetIcons: {
+		title: string,
+		type: "chart" | "stream" | "rocket" | "trajectory",
+		icon: () => any
+	}[] = [
 		{ title: "Chart", type: "chart", icon: chart },
 		{ title: "Rocket", type: "rocket", icon: rocket },
 		{ title: "Stream", type: "stream", icon: stream },
 		{ title: "Camera", type: "trajectory", icon: trajectory }
 	];
+
+	const addWidget = $derived((widgetType: "chart" | "stream" | "rocket" | "trajectory") => {
+
+        let base: WidgetProps = {
+			location: { x: 0, y: 0, width: 8, height: 10 },
+            type: widgetType,
+        };
+        switch (widgetType) {
+            case "chart":
+                (base as ChartProps) = {
+                    ...base,
+                    title: "Velocity",
+                    data: sampleVelocityData(100, 875),
+                    axisLabels: ["", "Velocity (m/s)"],
+                    graphType: ["area", "line"]
+                };
+                break;
+            case "rocket":
+                (base as RocketProps) = {
+                    ...base,
+                    title: "Rocket",
+                    backgroundType: "none"
+                };
+                break;
+            case "trajectory":
+                (base as TrajectoryProps) = {
+                    ...base,
+                    departure: [0, 0],
+                    arrival: [0, 0],
+                    title: "Trajectory"
+                };
+                break;
+            case "stream":
+                (base as StreamProps) = {
+                    ...base,
+                    title: "Camera"
+                };
+                break;
+        }
+            
+		$canvasTabs[$canvasIndex].widgets = [...$canvasTabs[$canvasIndex].widgets, base];	
+
+    });
 	
 </script>
 
@@ -56,7 +106,7 @@
 			<DropdownMenu.Content class="rounded-2xl">
 				<div class="grid grid-cols-2 grid-rows-2 px-1 py-1 space-x-1 space-y-1">
 					{#each widgetIcons as { title, type, icon }, index }
-					<button class="flex flex-col items-center text-xs text-center px-4 py-1 border border-transparent hover:border-brand rounded-xl">
+					<button onclick={ () => addWidget(type) } class="flex flex-col items-center text-xs text-center px-4 py-1 border border-transparent hover:border-brand rounded-xl">
 						<div class="w-8 h-8 flex justify-center items-center">{@render icon()}</div>
 						<p>{ title }</p>
 					</button>
