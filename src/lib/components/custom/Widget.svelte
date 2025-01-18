@@ -23,10 +23,6 @@
     } = $props();
 
     let location = $state(props.location)
-
-    
-
-
     let { title, type, backgroundType = "shadow" } = props as (ChartProps | TrajectoryProps | RocketProps | StreamProps);
 
     let ghostElement: HTMLDivElement;
@@ -90,7 +86,6 @@
 
         return [cellX, cellY];
     }
-
 </script>
 
 

@@ -13,5 +13,5 @@
 </script>
 
 <article class="w-full h-full">
-    <video bind:paused={ paused } class="w-full h-full object-cover" src="/videos/launch.mp4" autoplay loop muted></video>
+    <video src="/videos/launch.mp4" bind:paused={ paused } class="w-full h-full object-cover" autoplay loop muted></video>
 </article>

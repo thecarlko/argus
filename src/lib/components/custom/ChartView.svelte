@@ -17,7 +17,6 @@
     let canvasHeight : number = $state(150);
     let canvas : HTMLDivElement;
 
-
     let chartMap = $derived({
         "line": lineY(data, { stroke: "var(--color-brand)", opacity: 0.4 }),
         "area": areaY(data, { fill: "var(--color-chart-fill)", opacity: 0.8 }),
@@ -42,7 +41,7 @@
                 let ddy = seconds == 0 ? 0 : (altitudeGraph[seconds] - 2 * altitudeGraph[seconds - 1] + altitudeGraph[seconds - 2]) * 250;
                 return ddy;
             case "pressure": 
-                return calculatePressure(altitudeGraph[seconds]);
+                return calculatePressure(altitudeGraph[seconds]) / 1000;
             case "temperature":
                 return calculateRocketTemperature(altitudeGraph[seconds], seconds, 1200);
             case "thrust":

@@ -73,7 +73,7 @@ const charts: ChartProps[] = [
         title: "Pressure",
         graphType: ["line"],
         dataType: "pressure",
-        axisLabels: ["time (s)", "k/Pa"],
+        axisLabels: ["time (s)", "k/Pa x 10³"],
         type: "chart"
     },
     {

@@ -32,14 +32,15 @@
             <a href="/new" class="button"><Button size="sm">Start New Mission</Button></a>
             <a href="/logs" class="button"><Button variant="outline" size="sm">View Flight Logs</Button></a>
         </div>
-
         <br>
 
 
         <div class="flex-grow relative">
             <div style={ `transform: translateY(-50%) translateX(${ -50 * missionIndex }%)` } class="absolute flex top-1/2 h-full gap-x-[5%] pl-[calc(22%+5vw)] transition-all duration-700">
                 {#each missions as { title, image }, index }
-                    <a href={ `/mission/${ title.replaceAll(" ", "").toLocaleLowerCase() }` } style={ index != missionIndex ? "transform: scaleX(0.75) scaleY(0.75)" : "" } class="flex-grow flex justify-center transition-all duration-700 items-center min-w-[64%] w-[64%] origin-bottom" ><img src="/rockets/{ image }" alt=""></a>
+                    <a href={ `/mission/${ title.replaceAll(" ", "").toLocaleLowerCase() }` } style={ index != missionIndex ? "transform: scaleX(0.75) scaleY(0.75)" : "" } class="flex-grow flex justify-center transition-all duration-700 items-center min-w-[64%] w-[64%] origin-bottom" >
+                        <img class="h-full w-max" src="/rockets/{ image }" alt="">
+                    </a>
                 {/each}
             </div>
 

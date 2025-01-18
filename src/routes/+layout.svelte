@@ -4,10 +4,13 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import { ModeWatcher } from "mode-watcher";
     import * as Tooltip from '$lib/components/ui/tooltip';
+    import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+    import * as ContextMenu from '$lib/components/ui/context-menu';
+
+
 	import { toggleMode, mode } from "mode-watcher";
 	import { Toaster } from "$lib/components/ui/sonner";
     import { toast } from 'svelte-sonner';
-    import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
     import { page } from '$app/state';
     import { sampleVelocityData } from '$lib/utilities/telemetry';
     import { canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
@@ -86,16 +89,16 @@
 <Toaster richColors />
 <section id="pattern" class="fixed h-lvh w-lvw -z-50 top-0 left-0 bottom-0 right-0 bg-repeat-space" style={ `background-image: url("/assets/${ $mode == "light" ? 'pattern.png' : 'pattern-dark.png' }")` }></section>
 
-
 <DropdownMenu.Root>
 <Tooltip.Provider>
+
 <nav class="fixed top-0 left-0 right-0 py-3 px-4 md:px-8 z-50 pointer-events-none">
 	<header class="flex items-center justify-between">
 		<div class="flex justify-center items-center space-x-1 pointer-events-auto">
 			<a class="flex items-center pr-1 h-9 pointer-events-auto" href="/">
 				<img src={ $mode == "light" ? "/icons/argus.png" : "/icons/argus-dark.png" } alt="">
 				<X class="w-3 h-3 ml-3" strokeWidth={1} />
-				<img class="py-1 w-max" src="/icons/longhorn.png" alt="">
+				<img class="py-1 w-12" src="/icons/longhorn.png" alt="">
 			</a>
 			<!-- <p>/</p> -->
 			<!-- <p class="text-xs px-2 py-1 rounded-full hover:bg-accent hover:cursor-pointer">polarisiii</p> -->
@@ -152,8 +155,10 @@
 
 {@render children()}
 
+
 </Tooltip.Provider>
 </DropdownMenu.Root>
+
 
 
 {#snippet rocket()}

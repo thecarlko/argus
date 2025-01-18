@@ -5,13 +5,21 @@
     import { type WidgetProps, type WidgetLocation, playing } from "$lib/models/editor.svelte";
     import { remToPX, vwToPX } from "$lib/utilities/math";
     import { canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
-    import { Pause, Play, Slice } from "lucide-svelte";
+    import { Pause, Play, Plus, Slice } from "lucide-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import { fly } from "svelte/transition";
     import { Button } from "$lib/components/ui/button";
+    import { toast } from "svelte-sonner";
+    import * as ContextMenu from "$lib/components/ui/context-menu";
 
     let mainWidth = $state(0); let mainHeight = $state(0);
     let [cellWidth, cellHeight] = $derived([(mainWidth - vwToPX(8)) / 36, (mainHeight - remToPX(7)) / 36]);
+
+    const addTab = () => {
+        const count = $canvasTabs.length;
+        $canvasTabs = [...$canvasTabs, { title: `Tab ${ count + 1 }`, widgets: [] }];
+        toast.success("Tab added successfully!");
+    };
 
 </script>
 
@@ -22,11 +30,32 @@
 
     <div transition:fly="{{ y: -200, duration: 400 }}" class="absolute top-0 left-0 right-0 py-4 flex justify-center items-center z-50 pointer-events-none">
         <Tabs.Root  value={ $canvasTabs[$canvasIndex].title.toLocaleLowerCase() } class="pointer-events-auto">
-            <Tabs.List class="flex items-center bg-transparent space-x-2">
+
+            <ContextMenu.Root>
+            <Tabs.List class="flex items-center bg-transparent space-x-3">
                 {#each $canvasTabs as { title }, index }
-                <Tabs.Trigger onclick={ () => $canvasIndex = index } style="filter: var(--drop-shadow-400)" class="rounded-full px-4 font-normal capitalize data-[state=active]:text-brand  data-[state=active]:dark:bg-accent data-[state=active]:bg-background" value={ title.toLocaleLowerCase() }>{ title }</Tabs.Trigger>
+
+                
+                <Tabs.Trigger
+                    onclick={ () => $canvasIndex = index }
+                    style="filter: var(--drop-shadow-400)"
+                    class="rounded-full px-4 font-normal capitalize data-[state=active]:text-brand  data-[state=active]:dark:bg-accent data-[state=active]:bg-background" value={ title.toLocaleLowerCase() }>
+                        { title }
+                </Tabs.Trigger>
+
+
                 {/each }
+
+                {#if $canvasTabs.length < 4 }
+                <Button onclick={ addTab } variant="ghost" class="rounded-full px-2 py-[0.1rem] w-max h-max">
+                    <Plus strokeWidth={1} />
+                </Button>
+                {/if }
             </Tabs.List>
+            </ContextMenu.Root>
+
+
+
         </Tabs.Root>
     </div>
 
@@ -39,7 +68,6 @@
                 <Play fill="hsl(var(--foreground))" strokeWidth={1} />
                 {/if}
             </Button>
-
         </div>
     </div>
 
