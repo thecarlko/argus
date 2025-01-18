@@ -2,7 +2,7 @@
 	import '$lib/styles/app.css';
 
 	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import { ModeWatcher } from "mode-watcher";
+	import { ModeWatcher, setMode } from "mode-watcher";
     import * as Tooltip from '$lib/components/ui/tooltip';
     import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
     import * as ContextMenu from '$lib/components/ui/context-menu';
@@ -14,15 +14,19 @@
     import { page } from '$app/state';
     import { sampleVelocityData } from '$lib/utilities/telemetry';
     import { canvasIndex, canvasTabs } from "$lib/models/editor.svelte";
-    import { Earth, FileChartLine, Grid2x2Plus, Moon, Package, Rocket, Sun, TrendingUp, Video, X } from 'lucide-svelte';
+    import { Earth, FileChartLine, Grid2x2Plus, Moon, Package, Rocket, Sun, SunMoon, TrendingUp, Video, X } from 'lucide-svelte';
     import type { ChartProps, RocketProps, StreamProps, TrajectoryProps, WidgetProps } from '$lib/models/editor.svelte';
 
 
+	let modeIndex = $state(0)
 	let { children } = $props();
 
 	function toggleTheme() {
-		toast.success("Theme has been changed to " + ($mode == "light" ? "dark" : "light"));
-		toggleMode();
+		const theme = modeIndex % 3 == 0 ? "light" : modeIndex % 3 == 1 ? "dark" : "system"
+		setMode(theme);
+
+		toast.success("Theme has been changed to " + theme);
+		modeIndex++;
 	};
 	
 	const widgetIcons: {
@@ -127,10 +131,12 @@
 			<Tooltip.Root>
 				<Tooltip.Trigger class={ buttonVariants({ variant: "ghost" }) + " !p-[3px] w-8 h-8" }>
 					<button onclick={ toggleTheme }>
-						{#if $mode == "light" }
-						<Moon class="!w-6 !h-6" strokeWidth={1.25} />
-						{:else}
+						{#if modeIndex % 3 == 0 }
+						<SunMoon strokeWidth={1.25} />
+						{:else if modeIndex % 3 == 1 }
 						<Sun class="!w-6 !h-6" strokeWidth={1.25} />
+						{:else}
+						<Moon class="!w-6 !h-6" strokeWidth={1.25} />
 						{/if}
 					</button>
 				</Tooltip.Trigger>
