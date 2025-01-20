@@ -147,6 +147,8 @@
             graphType={ (props as any).graphType }
         />
     {/if}
+
+
 </div>
 
 <style>

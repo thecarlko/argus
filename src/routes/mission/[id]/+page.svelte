@@ -23,6 +23,7 @@
 
 </script>
 
+
 <main
     bind:clientWidth={ mainWidth }
     bind:clientHeight={ mainHeight }
@@ -78,7 +79,10 @@
         {/each}
     </section>
     {/each}
+
+
 </main>
+
 
 <footer class="fixed bottom-0 left-0 right-0 px-5 pb-4 flex justify-between text-accent-foreground opacity-50 text-xs">
     <h6>Longhorn Rocketry Association &middot; Argus &trade;</h6>

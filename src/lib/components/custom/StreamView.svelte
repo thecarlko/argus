@@ -13,5 +13,8 @@
 </script>
 
 <article class="w-full h-full">
-    <video src="/videos/launch.mp4" bind:paused={ paused } class="w-full h-full object-cover" autoplay loop muted></video>
+    <video muted bind:paused={ paused } class="w-full h-full object-cover">
+        <source src="/videos/launch.mp4" type="video/mp4">
+        <track kind="captions" src="/videos/launch_captions.vtt" srclang="en" label="English">
+    </video>
 </article>
